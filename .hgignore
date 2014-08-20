@@ -1,0 +1,6 @@
+syntax: glob
+packages
+Tests
+*.suo
+bin
+obj
