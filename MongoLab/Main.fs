@@ -1,43 +1,41 @@
-namespace IntelliFactory.WebSharper.MongoLab
+﻿namespace IntelliFactory.WebSharper.MongoLab
 
 open IntelliFactory.WebSharper
 
 [<AutoOpen; JavaScript>]
-module Main =
+module Functions =
     
     open IntelliFactory.WebSharper.JQuery
 
-    let Key = ref ""
+    let (>-) database colName = PushableCollection (colName, database)
 
-    type Database (name) =
-        member x.Name : string = name
+    let Where ``constraint`` (collection : Collection) =
+        Collection (collection.Name, collection.Database, ``constraint`` (), collection.Sorts)
 
-    type Collection =
-        {
-            Name       : string
-            Database   : Database
-        }
-        with static member ToString (collection : Collection) =
-                "/databases/" + collection.Database.Name + "/collections/" + collection.Name
+    let Sort sorts (collection : Collection) =
+        Collection (collection.Name, collection.Database, collection.Constraint, sorts)
     
-    let (>-) database colName =
-        { Name = colName; Database = database }
-
-    let private BaseUrl = "https://api.mongolab.com/api/1"
-
-    let private Request<'a> urlExtension collection =
+    let Fetch collection =
         Async.FromContinuations (fun (ok, _, _) ->
             JQuery.GetJSON(
-                BaseUrl + Collection.ToString collection + "?apiKey=" + !Key + (function | Some extension -> extension | _ -> "") urlExtension,
+                !BaseUrl + Collection.ToString collection + "&apiKey=" + !Key,
                 null,
                 fun (result, _) ->
-                    ok (As<'a> result)
+                    ok (As<obj array> result)
+            )
+            |> ignore
+        )
+    
+    let Count collection =
+        Async.FromContinuations (fun (ok, _, _) ->
+            JQuery.GetJSON(
+                !BaseUrl + Collection.ToString collection + "&c=true&apiKey=" + !Key,
+                null,
+                fun (result, _) ->
+                    ok (As<int> result)
             )
             |> ignore
         )
 
-    let Fetch =
-        Request<obj array> None
-    
-    let Count =
-        Request<int> (Some "&c=true")
+//    let Push data (collection : PushableCollection) =
+//        X<Async<unit>>

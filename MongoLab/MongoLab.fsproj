@@ -53,6 +53,8 @@
     <Error Condition="!Exists('..\packages\WebSharper.2.5.118.53\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.2.5.118.53\build\WebSharper.targets'))" />
   </Target>
   <ItemGroup>
+    <Compile Include="Types.fs" />
+    <Compile Include="Variables.fs" />
     <Compile Include="Main.fs" />
     <None Include="packages.config" />
   </ItemGroup>
