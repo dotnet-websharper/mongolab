@@ -7,18 +7,18 @@ module Functions =
     
     open IntelliFactory.WebSharper.JQuery
 
-    let (>-) database colName = PushableCollection (colName, database)
+    let (>-) database (collection : Collection<'a>) = PushableCollection<'a> (collection.Name, database)
 
-    let Where ``constraint`` (collection : Collection) =
-        Collection (collection.Name, collection.Database, ``constraint`` (), collection.Sorts)
+    let Where ``constraint`` (collection : Col) =
+        Col (collection.Name, collection.Database, ``constraint`` (), collection.Sorts)
 
-    let Sort sorts (collection : Collection) =
-        Collection (collection.Name, collection.Database, collection.Constraint, sorts)
+    let Sort sorts (collection : Col) =
+        Col (collection.Name, collection.Database, collection.Constraint, sorts)
     
     let Fetch collection =
         Async.FromContinuations (fun (ok, _, _) ->
             JQuery.GetJSON(
-                !BaseUrl + Collection.ToString collection + "&apiKey=" + !Key,
+                !BaseUrl + Col.ToString collection + "&apiKey=" + !Key,
                 null,
                 fun (result, _) ->
                     ok (As<obj array> result)
@@ -29,13 +29,29 @@ module Functions =
     let Count collection =
         Async.FromContinuations (fun (ok, _, _) ->
             JQuery.GetJSON(
-                !BaseUrl + Collection.ToString collection + "&c=true&apiKey=" + !Key,
+                !BaseUrl + Col.ToString collection + "&c=true&apiKey=" + !Key,
                 null,
                 fun (result, _) ->
                     ok (As<int> result)
             )
             |> ignore
         )
-
-//    let Push data (collection : PushableCollection) =
-//        X<Async<unit>>
+    
+    let Push (data : 'a) (collection : PushableCollection<'a>) =
+        Async.FromContinuations (fun (ok, _, _) ->
+            JQuery.Ajax(
+                !BaseUrl + Col.ToString collection + "&apiKey=" + !Key,
+                AjaxConfig(
+                    Type    = As RequestType.POST,
+                    Data    = Json.Stringify data,
+                    Success =
+                        As (fun (result, _, _) ->
+                            ok true
+                        ),
+                    Headers = New [
+                        "Content-Type" => "application/json"
+                    ]
+                )
+            )
+            |> ignore
+        )

@@ -58,15 +58,18 @@ module Types =
         | Ascending
         | Descending
 
-    type Collection internal (name, database : Database, ``constraint``, sorts) =
+    type Col internal (name, database : Database, ``constraint``, sorts) =
         member x.Name       = name
         member x.Database   = database
         member x.Constraint = ``constraint``
 
         member x.Sorts : (string * SortType) list = sorts
 
-        static member internal ToString (collection : Collection) =
+        static member internal ToString (collection : Col) =
             "/databases/" + collection.Database.Name + "/collections/" + collection.Name + "?q=" + Constraint.ToString collection.Constraint
-        
-    type PushableCollection internal (name, database) =
-        inherit Collection (name, database, None, [])
+    
+    type PushableCollection<'a> internal (name, database) =
+        inherit Col (name, database, None, [])
+
+    type Collection<'a> (name) =
+        member x.Name : string = name
