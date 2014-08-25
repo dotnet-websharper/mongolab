@@ -6,7 +6,7 @@ open IntelliFactory.WebSharper
 module Types =
 
     type Database (name) =
-            member x.Name = name
+        member internal x.Name = name
 
     type Constraint =
         | Constraint of string * Condition
@@ -58,18 +58,16 @@ module Types =
         | Ascending
         | Descending
 
-    type Col internal (name, database : Database, ``constraint``, sorts) =
-        member x.Name       = name
-        member x.Database   = database
-        member x.Constraint = ``constraint``
+    type Collection<'a> (name) =
+        member internal x.Name = name
 
-        member x.Sorts : (string * SortType) list = sorts
+        member val internal Database : Database option = None with get, set
+        member val internal Constraint = None with get, set
 
-        static member internal ToString (collection : Col) =
-            "/databases/" + collection.Database.Name + "/collections/" + collection.Name + "?q=" + Constraint.ToString collection.Constraint
+        member val internal Sorts : (string * SortType) list = [] with get, set
+
+        static member internal ToString (collection : Collection<_>) =
+            "/databases/" + collection.Database.Value.Name + "/collections/" + collection.Name + "?q=" + Constraint.ToString collection.Constraint
     
     type PushableCollection<'a> internal (name, database) =
-        inherit Col (name, database, None, [])
-
-    type Collection<'a> (name) =
-        member x.Name : string = name
+        inherit Collection<'a> (name, Database = Some database)

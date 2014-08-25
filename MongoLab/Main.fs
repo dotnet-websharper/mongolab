@@ -9,27 +9,27 @@ module Functions =
 
     let (>-) database (collection : Collection<'a>) = PushableCollection<'a> (collection.Name, database)
 
-    let Where ``constraint`` (collection : Col) =
-        Col (collection.Name, collection.Database, Some (``constraint`` ()), collection.Sorts)
+    let Where ``constraint`` (collection : Collection<'a>) =
+        Collection<'a> (collection.Name, Database = collection.Database, Constraint = Some (``constraint`` ()), Sorts = collection.Sorts)
 
-    let Sort sorts (collection : Col) =
-        Col (collection.Name, collection.Database, collection.Constraint, sorts)
+    let Sort sorts (collection : Collection<'a>) =
+        Collection<'a> (collection.Name, Database = collection.Database, Constraint = collection.Constraint, Sorts = sorts)
     
-    let Fetch collection =
+    let Fetch (collection : Collection<'a>) =
         Async.FromContinuations (fun (ok, _, _) ->
             JQuery.GetJSON(
-                !BaseUrl + Col.ToString collection + "&apiKey=" + !Key,
+                !BaseUrl + Collection<'a>.ToString collection + "&apiKey=" + !Key,
                 null,
                 fun (result, _) ->
-                    ok (As<obj array> result)
+                    ok (As<'a array> result)
             )
             |> ignore
         )
     
-    let Count collection =
+    let Count (collection : Collection<_>) =
         Async.FromContinuations (fun (ok, _, _) ->
             JQuery.GetJSON(
-                !BaseUrl + Col.ToString collection + "&c=true&apiKey=" + !Key,
+                !BaseUrl + Collection<_>.ToString collection + "&c=true&apiKey=" + !Key,
                 null,
                 fun (result, _) ->
                     ok (As<int> result)
@@ -40,13 +40,13 @@ module Functions =
     let Push (data : 'a) (collection : PushableCollection<'a>) =
         Async.FromContinuations (fun (ok, _, _) ->
             JQuery.Ajax(
-                !BaseUrl + Col.ToString collection + "&apiKey=" + !Key,
+                !BaseUrl + Collection<'a>.ToString collection + "&apiKey=" + !Key,
                 AjaxConfig(
                     Type    = As RequestType.POST,
                     Data    = Json.Stringify data,
                     Success =
                         As (fun (result, _, _) ->
-                            ok true
+                            ok (As<'a> result)
                         ),
                     Headers = New [
                         "Content-Type" => "application/json"

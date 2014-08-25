@@ -14,7 +14,7 @@ async {
 
     users
     |> Array.iter (fun user ->
-        JavaScript.Log (string user?Name + " (" + string user?Location + ")")
+        JavaScript.Log (user?Name + " (" + user?Location + ")")
     )
 }
 |> Async.Start
@@ -32,7 +32,7 @@ Key := "Your API key."
 
 ## Constraints
 
-We can restrict queries as in any other query language with ``Constraint``s and ``Condition``s. Let's count the Hungarian users.
+You can restrict queries as in any other query language with ``Constraint``s and ``Condition``s. Let's count the Hungarian users.
 
 ```
 #!fsharp
@@ -71,3 +71,7 @@ Database "websharper" >- Collection<User> "Users"
 |> Async.Ignore
 |> Async.Start
 ```
+
+## Optional "type-safety"
+
+You can explicitly set the collection-type. After ``Collection<'a>``, ``Push`` will look like ``'a -> Async<bool>`` rather than ``obj -> ...``, which is much better.
