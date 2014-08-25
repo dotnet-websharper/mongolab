@@ -10,7 +10,7 @@ module Functions =
     let (>-) database (collection : Collection<'a>) = PushableCollection<'a> (collection.Name, database)
 
     let Where ``constraint`` (collection : Col) =
-        Col (collection.Name, collection.Database, ``constraint`` (), collection.Sorts)
+        Col (collection.Name, collection.Database, Some (``constraint`` ()), collection.Sorts)
 
     let Sort sorts (collection : Col) =
         Col (collection.Name, collection.Database, collection.Constraint, sorts)
