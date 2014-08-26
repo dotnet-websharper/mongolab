@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MongoLab", "MongoLab\MongoLab.fsproj", "{B986B339-A27B-443D-8CEC-29E3D0B7A33F}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tests", "Tests\Tests.fsproj", "{D664B845-16AC-4B82-B110-98D057A167F7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{B986B339-A27B-443D-8CEC-29E3D0B7A33F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B986B339-A27B-443D-8CEC-29E3D0B7A33F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B986B339-A27B-443D-8CEC-29E3D0B7A33F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D664B845-16AC-4B82-B110-98D057A167F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D664B845-16AC-4B82-B110-98D057A167F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D664B845-16AC-4B82-B110-98D057A167F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D664B845-16AC-4B82-B110-98D057A167F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

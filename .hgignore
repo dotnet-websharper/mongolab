@@ -4,3 +4,4 @@ Tests
 *.suo
 bin
 obj
+build/*
