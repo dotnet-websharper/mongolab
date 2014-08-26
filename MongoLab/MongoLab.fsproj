@@ -6,7 +6,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{b986b339-a27b-443d-8cec-29e3d0b7a33f}</ProjectGuid>
     <WebSharperProject>Library</WebSharperProject>
-    <NuGetPackageImportStamp>bde7a194</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>19f60a91</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -45,12 +45,12 @@
     </Otherwise>
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
-  <Import Project="..\packages\WebSharper.2.5.118.53\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.2.5.118.53\build\WebSharper.targets')" />
+  <Import Project="..\packages\WebSharper.2.5.123.58\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.2.5.123.58\build\WebSharper.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\WebSharper.2.5.118.53\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.2.5.118.53\build\WebSharper.targets'))" />
+    <Error Condition="!Exists('..\packages\WebSharper.2.5.123.58\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.2.5.123.58\build\WebSharper.targets'))" />
   </Target>
   <ItemGroup>
     <Compile Include="Types.fs" />
