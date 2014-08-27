@@ -45,8 +45,8 @@ module Functions =
                     Type    = As RequestType.POST,
                     Data    = Json.Stringify data,
                     Success =
-                        As (fun (result, _, _) ->
-                            ok (As<'a> result)
+                        As (fun _ ->
+                            ok true
                         ),
                     Headers = New [
                         "Content-Type" => "application/json"
