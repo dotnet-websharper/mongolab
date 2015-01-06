@@ -1,6 +1,7 @@
 ﻿namespace IntelliFactory.WebSharper.MongoLab
 
 open IntelliFactory.WebSharper
+open IntelliFactory.WebSharper.JavaScript
 
 [<AutoOpen; JavaScript>]
 module Functions =
