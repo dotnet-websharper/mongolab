@@ -25,9 +25,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <Name>MongoLab</Name>
-    <RootNamespace>MongoLab</RootNamespace>
-    <AssemblyName>MongoLab</AssemblyName>
+    <Name>IntelliFactory.WebSharper.MongoLab</Name>
+    <RootNamespace>$(Name)</RootNamespace>
+    <AssemblyName>$(Name)</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <WarningLevel>3</WarningLevel>
   </PropertyGroup>
@@ -45,23 +45,10 @@
     </Otherwise>
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
-  <Import Project="..\packages\WebSharper.2.5.123.58\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.2.5.123.58\build\WebSharper.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\WebSharper.2.5.123.58\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.2.5.123.58\build\WebSharper.targets'))" />
-  </Target>
+  <Import Project="../build/net40/$(Name).proj" />
   <ItemGroup>
     <Compile Include="Types.fs" />
     <Compile Include="Variables.fs" />
     <Compile Include="Main.fs" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="mscorlib" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
   </ItemGroup>
 </Project>
