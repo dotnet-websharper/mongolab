@@ -42,9 +42,9 @@ module Functions =
         Async.FromContinuations (fun (ok, _, _) ->
             JQuery.Ajax(
                 !BaseUrl + Collection<'a>.ToString collection + "&apiKey=" + !Key,
-                AjaxConfig(
+                AjaxSettings(
                     Type    = As RequestType.POST,
-                    Data    = Json.Stringify data,
+                    Data    = unbox (Json.Stringify data),
                     Success =
                         As (fun _ ->
                             ok true
