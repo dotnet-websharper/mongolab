@@ -1,6 +1,6 @@
-﻿namespace IntelliFactory.WebSharper.MongoLab
+﻿namespace WebSharper.MongoLab
 
-open IntelliFactory.WebSharper
+open WebSharper
 
 [<AutoOpen; JavaScript>]
 module Types =

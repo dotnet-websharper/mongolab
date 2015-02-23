@@ -1,12 +1,12 @@
-﻿namespace IntelliFactory.WebSharper.MongoLab
+﻿namespace WebSharper.MongoLab
 
-open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.JavaScript
+open WebSharper
+open WebSharper.JavaScript
 
 [<AutoOpen; JavaScript>]
 module Functions =
     
-    open IntelliFactory.WebSharper.JQuery
+    open WebSharper.JQuery
 
     let (>-) database (collection : Collection<'a>) = PushableCollection<'a> (collection.Name, database)
 
