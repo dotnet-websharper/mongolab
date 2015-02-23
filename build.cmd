@@ -1,9 +1,11 @@
-@echo off
+@ECHO OFF
+REM NOTE: This file was auto-generated with `IB.exe prepare` from `IntelliFactory.Build`.
+
 setlocal
 set PATH=%PATH%;%ProgramFiles(x86)%\Microsoft SDKs\F#\3.1\Framework\v4.0
 set PATH=%PATH%;%ProgramFiles(x86)%\Microsoft SDKs\F#\3.0\Framework\v4.0
 set PATH=%PATH%;%ProgramFiles%\Microsoft SDKs\F#\3.1\Framework\v4.0
 set PATH=%PATH%;%ProgramFiles%\Microsoft SDKs\F#\3.0\Framework\v4.0
-set PATH=%PATH%;tools
-nuget install IntelliFactory.Build -pre -nocache -excludeversion -o packages
-fsi --exec build.fsx %*
+set PATH=%PATH%;tools\NuGet
+nuget install IntelliFactory.Build -nocache -pre -ExcludeVersion -o tools\packages
+fsi.exe --exec build.fsx %*
