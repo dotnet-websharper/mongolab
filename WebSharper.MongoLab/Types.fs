@@ -66,7 +66,7 @@ module Types =
 
         member val internal Sorts : (string * SortType) list = [] with get, set
 
-        static member internal ToString (collection : Collection<_>) =
+        static member internal ToString (collection : Collection<'a>) =
             "/databases/" + collection.Database.Value.Name + "/collections/" + collection.Name + "?q=" + Constraint.ToString collection.Constraint
     
     type PushableCollection<'a> internal (name, database) =
