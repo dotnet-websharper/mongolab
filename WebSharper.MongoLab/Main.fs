@@ -21,8 +21,7 @@ module Functions =
             JQuery.GetJSON(
                 !BaseUrl + Collection<'a>.ToString collection + "&apiKey=" + !Key,
                 null,
-                fun (result, _) ->
-                    ok (As<'a array> result)
+                (fun result _ _ -> ok (result :?> 'a array))
             )
             |> ignore
         )
@@ -32,8 +31,7 @@ module Functions =
             JQuery.GetJSON(
                 !BaseUrl + Collection<_>.ToString collection + "&c=true&apiKey=" + !Key,
                 null,
-                fun (result, _) ->
-                    ok (As<int> result)
+                (fun result _ _ -> ok (result :?> int))
             )
             |> ignore
         )
@@ -43,12 +41,9 @@ module Functions =
             JQuery.Ajax(
                 !BaseUrl + Collection<'a>.ToString collection + "&apiKey=" + !Key,
                 AjaxSettings(
-                    Type    = As RequestType.POST,
-                    Data    = unbox (Json.Stringify data),
-                    Success =
-                        As (fun _ ->
-                            ok true
-                        ),
+                    Type    = RequestType.POST,
+                    Data    = Json.Stringify data,
+                    Success = (fun _ _ _ -> ok true),
                     Headers = New [
                         "Content-Type" => "application/json"
                     ]
