@@ -2,13 +2,13 @@
 open IntelliFactory.Build
 
 let bt =
-    BuildTool().PackageId("Zafir.MongoLab")
-        .VersionFrom("Zafir")
+    BuildTool().PackageId("WebSharper.MongoLab")
+        .VersionFrom("WebSharper")
         .WithFSharpVersion(FSharpVersion.FSharp30)
         .WithFramework(fun fw -> fw.Net40)
 
 let main =
-    bt.Zafir.Library("WebSharper.MongoLab")
+    bt.WebSharper4.Library("WebSharper.MongoLab")
         .SourcesFromProject()
 
 bt.Solution [
@@ -22,7 +22,7 @@ bt.Solution [
             {
                 configuration with
                     Authors    = ["IntelliFactory"]
-                    Title      = Some "Zafir.MongoLab"
+                    Title      = Some "WebSharper.MongoLab"
                     LicenseUrl = Some "https://bitbucket.org/IntelliFactory/websharper.mongolab/src/0ac630dac46384a35fb3b85ef00d91965527cdf8/LICENSE.md"
                 
                     RequiresLicenseAcceptance = true
