@@ -5,3 +5,7 @@ Tests
 bin
 obj
 build/*
+.fake/
+paket-files/
+.vscode/
+nuget/*.paket.template

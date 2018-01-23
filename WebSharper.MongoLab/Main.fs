@@ -21,11 +21,7 @@ module Functions =
             JQuery.GetJSON(
                 !BaseUrl + Collection<'a>.ToString collection + "&apiKey=" + !Key,
                 null,
-#if ZAFIR
                 (fun result _ _ ->
-#else
-                (fun (result, _) ->
-#endif
                      ok (result :?> 'a array))
             )
             |> ignore
@@ -36,11 +32,7 @@ module Functions =
             JQuery.GetJSON(
                 !BaseUrl + Collection<_>.ToString collection + "&c=true&apiKey=" + !Key,
                 null,
-#if ZAFIR
                 (fun result _ _ ->
-#else
-                (fun (result, _) ->
-#endif
                     ok (result :?> int))
             )
             |> ignore
@@ -54,11 +46,7 @@ module Functions =
                     Type    = RequestType.POST,
                     Data    = Json.Stringify data,
                     Success =
-#if ZAFIR
                         (fun _ _ _ -> ok true),
-#else
-                        (fun _ -> ok true),
-#endif
                     Headers = New [
                         "Content-Type" => "application/json"
                     ]
