@@ -1,33 +1,17 @@
-#load "tools/includes.fsx"
-open IntelliFactory.Build
+#load "paket-files/build/intellifactory/websharper/tools/WebSharper.Fake.fsx"
+open Fake
+open WebSharper.Fake
 
-let bt =
-    BuildTool().PackageId("WebSharper.MongoLab")
-        .VersionFrom("WebSharper", versionSpec = "(,4.0)")
-        .WithFSharpVersion(FSharpVersion.FSharp30)
-        .WithFramework(fun fw -> fw.Net40)
+let targets =
+    GetSemVerOf "WebSharper"
+    |> ComputeVersion
+    |> WSTargets.Default
+    |> MakeTargets
 
-let main =
-    bt.WebSharper.Library("WebSharper.MongoLab")
-        .SourcesFromProject()
+Target "Build" DoNothing
+targets.BuildDebug ==> "Build"
 
-bt.Solution [
+Target "CI-Release" DoNothing
+targets.CommitPublish ==> "CI-Release"
 
-    main
-
-    bt.NuGet.CreatePackage()
-        .Description("WebSharper abstractions for MongoLab REST API.")
-        .ProjectUrl("https://bitbucket.org/IntelliFactory/websharper.mongolab")
-        .Configure(fun configuration ->
-            {
-                configuration with
-                    Authors    = ["IntelliFactory"]
-                    Title      = Some "WebSharper.MongoLab"
-                    LicenseUrl = Some "https://bitbucket.org/IntelliFactory/websharper.mongolab/src/0ac630dac46384a35fb3b85ef00d91965527cdf8/LICENSE.md"
-                
-                    RequiresLicenseAcceptance = true
-            }
-        )
-        .Add main
-]
-|> bt.Dispatch
+RunTargetOrDefault "Build"
