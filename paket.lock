@@ -16,7 +16,7 @@ NUGET
     FSharp.Core (4.5.2)
     Mono.Cecil (0.10)
     Newtonsoft.Json (11.0.2)
-    Paket.Core (5.141)
+    Paket.Core (5.173.1)
       Chessie (>= 0.6)
       FSharp.Compiler.Tools
       FSharp.Core

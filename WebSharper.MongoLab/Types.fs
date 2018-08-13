@@ -69,5 +69,7 @@ module Types =
         static member internal ToString (collection : Collection<'a>) =
             "/databases/" + collection.Database.Value.Name + "/collections/" + collection.Name + "?q=" + Constraint.ToString collection.Constraint
     
-    type PushableCollection<'a> internal (name, database) =
-        inherit Collection<'a> (name, Database = Some database)
+    type PushableCollection<'a> internal (name, database) as this =
+        inherit Collection<'a> (name)
+
+        do this.Database <- Some database
