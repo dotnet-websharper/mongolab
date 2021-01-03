@@ -16,4 +16,4 @@ files
     ../WebSharper.MongoLab/bin/Release/netstandard2.0/WebSharper.MongoLab.dll ==> lib/netstandard2.0
     ../WebSharper.MongoLab/bin/Release/netstandard2.0/WebSharper.MongoLab.xml ==> lib/netstandard2.0
 dependencies
-        WebSharper ~> LOCKEDVERSION/3
+        WebSharper ~> LOCKEDVERSION:[3]
